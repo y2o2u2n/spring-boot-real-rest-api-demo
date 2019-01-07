@@ -4,6 +4,7 @@ import me.y2o2u2n.demo.common.ErrorsResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.MediaTypes;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
@@ -63,6 +65,19 @@ public class EventController {
         PagedResources<Resource<Event>> pagedResources = assembler.toResource(page, e -> new EventResource(e));
         pagedResources.add(new Link("/docs/index.html#resources-events-list").withRel("profile"));
         return ResponseEntity.ok(pagedResources);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getEvent(@PathVariable Integer id) {
+        Optional<Event> optionalId = this.eventRepository.findById(id);
+        if (optionalId.isEmpty()) {
+           return ResponseEntity.notFound().build();
+        }
+
+        Event event = optionalId.get();
+        EventResource eventResource = new EventResource(event);
+        eventResource.add(new Link("/docs/index.html#resources-events-get").withRel("profile"));
+        return ResponseEntity.ok(eventResource);
     }
 
     private ResponseEntity badRequest(Errors errors) {
