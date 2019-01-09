@@ -15,4 +15,4 @@ Start the server:
 ```
 $ java -jar target/spring-boot-real-rest-api-demo-0.0.1-SNAPSHOT.jar
 ```
-Check REST API Docs on Playground `http://localhost:8080/docs/index.html`
+Check REST API Docs `http://localhost:8080/docs/index.html`
