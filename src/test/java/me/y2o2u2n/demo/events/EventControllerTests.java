@@ -7,7 +7,6 @@ import me.y2o2u2n.demo.accounts.AccountService;
 import me.y2o2u2n.demo.common.AppProperties;
 import me.y2o2u2n.demo.common.BaseControllerTests;
 import me.y2o2u2n.demo.common.TestDescription;
-import org.codehaus.jackson.JsonParser;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.web.servlet.ResultActions;
 

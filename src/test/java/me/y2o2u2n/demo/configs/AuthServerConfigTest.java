@@ -1,15 +1,11 @@
 package me.y2o2u2n.demo.configs;
 
-import me.y2o2u2n.demo.accounts.Account;
-import me.y2o2u2n.demo.accounts.AccountRole;
 import me.y2o2u2n.demo.accounts.AccountService;
 import me.y2o2u2n.demo.common.AppProperties;
 import me.y2o2u2n.demo.common.BaseControllerTests;
 import me.y2o2u2n.demo.common.TestDescription;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Set;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
