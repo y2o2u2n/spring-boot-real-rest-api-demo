@@ -4,6 +4,7 @@ import me.y2o2u2n.demo.accounts.Account;
 import me.y2o2u2n.demo.accounts.AccountRepository;
 import me.y2o2u2n.demo.accounts.AccountRole;
 import me.y2o2u2n.demo.accounts.AccountService;
+import me.y2o2u2n.demo.common.AppProperties;
 import me.y2o2u2n.demo.common.BaseControllerTests;
 import me.y2o2u2n.demo.common.TestDescription;
 import org.codehaus.jackson.JsonParser;
@@ -42,6 +43,9 @@ public class EventControllerTests extends BaseControllerTests {
 
     @Autowired
     AccountRepository accountRepository;
+
+    @Autowired
+    AppProperties appProperties;
 
     @Before
     public void setUp() {
@@ -137,22 +141,17 @@ public class EventControllerTests extends BaseControllerTests {
     }
 
     private String getAccessToken() throws Exception {
-        String username = "junseok@email.com";
-        String password = "junseok";
         Account account = Account.builder()
-                .email(username)
-                .password(password)
+                .email(appProperties.getUserUsername())
+                .password(appProperties.getUserPassword())
                 .roles(Set.of(AccountRole.ADMIN, AccountRole.USER))
                 .build();
         accountService.saveAccount(account);
 
-        String clientId = "myApp";
-        String clientSecret = "pass";
-
         ResultActions perform = this.mockMvc.perform(post("/oauth/token")
-                .with(httpBasic(clientId, clientSecret))
-                .param("username", username)
-                .param("password", password)
+                .with(httpBasic(appProperties.getClientId(), appProperties.getClientSecret()))
+                .param("username", appProperties.getUserUsername())
+                .param("password", appProperties.getUserPassword())
                 .param("grant_type", "password"));
 
         String responseBody = perform.andReturn().getResponse().getContentAsString();
